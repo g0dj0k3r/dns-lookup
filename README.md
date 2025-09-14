@@ -71,6 +71,8 @@ usage: dnslookup [-h] [-c] [-d DOMAIN] [-l {whois,a,4a,mx,ns,txt,soa,cname,all}]
 2. Install dependencies:
     ```
     sudo python3 setup.py install
+    or
+    sudo pip install e. 
     ```
     **Dependencies:**  
     - `colorama`  
@@ -79,12 +81,12 @@ usage: dnslookup [-h] [-c] [-d DOMAIN] [-l {whois,a,4a,mx,ns,txt,soa,cname,all}]
     - `python-whois`  
     - (see your own code for additional modules if needed)
 
-3. Run the tool:
+4. Run the tool:
     ```
     dnslookup -h
     ```
 
-4. Follow the prompts in the terminal.
+5. Follow the prompts in the terminal.
 
 ## Requirements
 
