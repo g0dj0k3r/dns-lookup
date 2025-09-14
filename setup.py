@@ -17,6 +17,7 @@ setup(
     entry_points={
         'console_scripts': [
             'dnslookup=dns_lookup:dlookup',
+            'dnslookup-gui=guilookup:main',
         ],
     },
     classifiers=[
