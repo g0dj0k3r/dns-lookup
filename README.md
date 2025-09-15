@@ -74,6 +74,8 @@ usage: dnslookup [-h] [-c] [-d DOMAIN] [-l {whois,a,4a,mx,ns,txt,soa,cname,all}]
     ```
     sudo python3 setup.py install
     or
+    sudo python3 setup.py develop
+    or
     sudo pip install e. 
     ```
     **Dependencies:**  
