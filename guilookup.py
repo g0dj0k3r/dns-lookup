@@ -1,7 +1,7 @@
 from tkinter import *
 import guienumerator
 from tkinter import ttk
-import whoiscan
+import whoiscan2
 def main():
 
     screen=Tk()
@@ -24,11 +24,11 @@ def main():
     fram2.grid_columnconfigure(0, weight=1)
 
     #recordsframe
-    rec_frame=Frame(fram2,width=1400,bg="lightgrey",border=5)
+    rec_frame=Frame(fram2,height=750,width=1400,bg="lightgrey",border=5)
     rec_frame.grid(row=0, column=0, sticky="nsew")
 
     #whoisframe
-    whoisframe=Frame(fram2,width=1400,border=5)
+    whoisframe=Frame(fram2,height=750,width=1400,border=5)
     whoisframe.grid(row=1, column=0, sticky="nsew")
     
     
@@ -42,7 +42,8 @@ def main():
     def clear_results():
         for item in tree.get_children():
             tree.delete(item)
-
+        clear_whois()   
+        
     def clear_whois():
         for item in whoistree.get_children():
             whoistree.delete(item)
@@ -100,7 +101,7 @@ def main():
     def whoisrec():
         clear_whois()
         target = targ.get()
-        result = whoiscan.whois_scan(target)
+        result = whoiscan2.whois_scan(target)
         for key, value in result.items():
             whoistree.insert("", END, values=(f"{key}: {value}",))
 
@@ -118,16 +119,16 @@ def main():
         whoisrec()
 
     #buttons
-    abut=Button(butframe,text="ipv4",command=ipv4,bg="lightgreen")
-    aaaabut=Button(butframe,text="ipv6",command=ipv6,bg="red")
-    cnamebut=Button(butframe,text="CNAME",command=cnamerec,bg="yellow")
-    mxbut=Button(butframe,text="MX",command=mxrec,bg="pink")
-    nsbut=Button(butframe,text="NS",command=nsrec,bg="lightgrey")
-    txtbut=Button(butframe,text="TXT",command=txtrec,bg="orange")
-    soabut=Button(butframe,text="SOA",command=soarec,bg="violet")
-    allbut=Button(butframe,text="ALL",command=allrec,bg="lightblue")
-    whoisbut=Button(butframe,text="WHOIS",command=whoisrec,bg="cyan")
-    clearbut=Button(butframe,text="Clear",command=clear_results,bg="white")
+    abut=Button(butframe,text="ipv4",command=ipv4,bg="lightgreen",width=10)
+    aaaabut=Button(butframe,text="ipv6",command=ipv6,bg="red",width=10)
+    cnamebut=Button(butframe,text="CNAME",command=cnamerec,bg="yellow",width=10)
+    mxbut=Button(butframe,text="MX",command=mxrec,bg="pink",width=10)
+    nsbut=Button(butframe,text="NS",command=nsrec,bg="lightgrey",width=10)
+    txtbut=Button(butframe,text="TXT",command=txtrec,bg="orange",width=10)
+    soabut=Button(butframe,text="SOA",command=soarec,bg="violet",width=10)
+    allbut=Button(butframe,text="ALL",command=allrec,bg="lightblue",width=10)
+    whoisbut=Button(butframe,text="WHOIS",command=whoisrec,bg="cyan",width=10)
+    clearbut=Button(butframe,text="Clear",command=clear_results,bg="white",width=10)
 
     abut.grid(row=0,column=0,padx=10,pady=10)
     aaaabut.grid(row=0,column=1,padx=10,pady=10)
