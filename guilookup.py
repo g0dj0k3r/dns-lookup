@@ -1,12 +1,12 @@
 from tkinter import *
 import guienumerator
 from tkinter import ttk
-
+import whoiscan
 def main():
 
     screen=Tk()
-    screen.title("GUI Enumerator")
-    screen.geometry("1500x1500")
+    screen.title("DNS Lookup")
+    screen.geometry("1500x1600")
     screen.config(bg="lightblue")   
 
 
@@ -14,10 +14,24 @@ def main():
     fram1=Frame(screen,bg="lightblue",width=300,height=1500)
     fram1.pack(side=LEFT,fill=BOTH,expand=True)
     fram2=Frame(screen,bg="white",width=1400,height=1500)
-    fram2.pack(side=RIGHT)
+    fram2.pack(side=RIGHT,expand=True,fill=BOTH)
     butframe=Frame(fram1,bg="lightblue",width=300)
     butframe.place(x=0,y=100)
 
+    # Configure grid for fram2
+    fram2.grid_rowconfigure(0, weight=1)
+    fram2.grid_rowconfigure(1, weight=1)
+    fram2.grid_columnconfigure(0, weight=1)
+
+    #recordsframe
+    rec_frame=Frame(fram2,width=1400,bg="lightgrey",border=5)
+    rec_frame.grid(row=0, column=0, sticky="nsew")
+
+    #whoisframe
+    whoisframe=Frame(fram2,width=1400,border=5)
+    whoisframe.grid(row=1, column=0, sticky="nsew")
+    
+    
     #entry
     Label(fram1,text="Enter Target",font=("Arial",14),bg="lightblue").place(x=20,y=0)
     targ=Entry(fram1,width=20,font=("Arial",18),bg="lightgrey")
@@ -28,6 +42,10 @@ def main():
     def clear_results():
         for item in tree.get_children():
             tree.delete(item)
+
+    def clear_whois():
+        for item in whoistree.get_children():
+            whoistree.delete(item)
 
     def ipv4():
         clear_results()
@@ -78,7 +96,14 @@ def main():
         result=guienumerator.soa(target)
         for res in result:
             tree.insert("",END,values=("","","","","","",res))
-        
+
+    def whoisrec():
+        clear_whois()
+        target = targ.get()
+        result = whoiscan.whois_scan(target)
+        for key, value in result.items():
+            whoistree.insert("", END, values=(f"{key}: {value}",))
+
     def allrec():
         clear_results()
         target=targ.get()
@@ -90,6 +115,7 @@ def main():
                 values = result.get(rec_type, [])
                 row.append(values[i] if i < len(values) else "")
             tree.insert("", END, values=tuple(row))
+        whoisrec()
 
     #buttons
     abut=Button(butframe,text="ipv4",command=ipv4,bg="lightgreen")
@@ -100,6 +126,7 @@ def main():
     txtbut=Button(butframe,text="TXT",command=txtrec,bg="orange")
     soabut=Button(butframe,text="SOA",command=soarec,bg="violet")
     allbut=Button(butframe,text="ALL",command=allrec,bg="lightblue")
+    whoisbut=Button(butframe,text="WHOIS",command=whoisrec,bg="cyan")
     clearbut=Button(butframe,text="Clear",command=clear_results,bg="white")
 
     abut.grid(row=0,column=0,padx=10,pady=10)
@@ -110,12 +137,24 @@ def main():
     txtbut.grid(row=2,column=1,padx=10,pady=10)
     soabut.grid(row=3,column=0,padx=10,pady=10)
     allbut.grid(row=3,column=1,padx=10,pady=10)
-    clearbut.grid(row=4,column=0,columnspan=2,padx=10,pady=10,sticky="we")
+    whoisbut.grid(row=4,column=0,padx=10,pady=10)
+    clearbut.grid(row=4,column=1,padx=10,pady=10)
 
+    #whoistree
+    whoistree=ttk.Treeview(whoisframe,columns=("whoisinfo"),show="headings",height=30)
+    whoistree.heading("whoisinfo",text="WHOIS Information")
+    whoistree.column("whoisinfo",width=1370)
+
+    #whoisscrollbar
+    whoisscrollbar=Scrollbar(whoisframe,orient=VERTICAL,command=whoistree.yview)
+    whoistree.configure(yscrollcommand=whoisscrollbar.set)
+
+    whoisscrollbar.pack(side=RIGHT,fill=Y)
+    whoistree.pack(fill=BOTH,expand=True)
 
 
     #treeview
-    tree=ttk.Treeview(fram2,columns=("A","AAAA","CNAME","MX","NS","TXT","SOA"),show="headings",height=1500)
+    tree=ttk.Treeview(rec_frame,columns=("A","AAAA","CNAME","MX","NS","TXT","SOA"),show="headings",height=10)
     tree.heading("A",text="A Record")
     tree.heading("AAAA",text="AAAA Record")
     tree.heading("CNAME",text="CNAME Record")
@@ -123,11 +162,11 @@ def main():
     tree.heading("NS",text="NS Record")
     tree.heading("TXT",text="TXT Record")
     tree.heading("SOA",text="SOA Record")
-    tree.column("A",width=230)
-    tree.column("AAAA",width=230)
+    tree.column("A",width=100)
+    tree.column("AAAA",width=210)
     tree.column("CNAME",width=230)
     tree.column("MX",width=230)
-    tree.column("NS",width=230)     
+    tree.column("NS",width=200)
     tree.column("TXT",width=230)
     tree.column("SOA",width=230)
     tree.pack(fill=BOTH,expand=True)
