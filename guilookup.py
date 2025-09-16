@@ -1,7 +1,7 @@
 from tkinter import *
 import guienumerator
 from tkinter import ttk
-import whoiscan2
+import whoiscan
 def main():
 
     screen=Tk()
@@ -100,7 +100,7 @@ def main():
     def whoisrec():
         clear_whois()
         target = targ.get()
-        result = whoiscan2.whois_scan(target)
+        result = whoiscan.whois_scan(target)
         for key, value in result.items():
             whoistree.insert("", END, values=(f"{key}: {value}",))
 
