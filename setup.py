@@ -6,7 +6,7 @@ setup(
     author='Godjoker',
     url='github.com/g0dj0k3r',
     packages=find_packages(),
-    py_modules=['dns_lookup', 'whoiscan', 'enumerator', 'user_manuel','guienumerator','guilookup','guienumerator2'],
+    py_modules=['guilookup','dns_lookup', 'whoiscan', 'whoiscan2','enumerator', 'user_manuel','guienumerator'],
     install_requires=[
         'dnspython',
         'python-whois',
