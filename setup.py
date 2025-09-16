@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dnslookup',
-    version='v2.0',
+    version='v3.0',
     author='Godjoker',
     url='github.com/g0dj0k3r',
     packages=find_packages(),
