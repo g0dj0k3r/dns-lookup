@@ -3,7 +3,7 @@ import colorama
 import sys
 import argparse
 import user_manuel
-import enumerator as enum_mod
+import perform
 from colorama import Fore, Back, Style
 from pyfiglet import*
 
@@ -32,6 +32,10 @@ def dlookup():
     parser.add_argument('-q', '--exit', action='store_true', help='Exit the program')
     args = parser.parse_args()
 
+      
+
+              
+                
     try:
         
         if args.exit:
@@ -84,33 +88,51 @@ def dlookup():
             if (args.lookup or args.l) == 'whois':
                 print(Fore.GREEN+"Performing WHOIS lookup for domain: "+args.domain)
                 whoiscan.whois_scan(target)
+                
             elif (args.lookup or args.l) == 'a':
                 print(Fore.GREEN+"Performing A record lookup for domain: "+args.domain)
-                enum_mod.a_record(target)
+                perform.arec(target)
+                
             elif (args.lookup or args.l) == '4a':
                 print(Fore.GREEN+"Performing AAAA record lookup for domain: "+args.domain)
-                enum_mod.ipv6(target)
+                perform.aaaarec(target)
+                              
+                
             elif (args.lookup or args.l) == 'cname':
                 print(Fore.GREEN+"Performing CNAME record lookup for domain: "+args.domain)
-                enum_mod.cname(target)
+                perform.cnamerec(target)
+                
+                    
+                    
             elif (args.lookup or args.l) == 'mx':
                 print(Fore.GREEN+"Performing MX record lookup for domain: "+args.domain)
-                enum_mod.mx(target)
+                perform.mxrec(target)
+                
+                
             elif (args.lookup or args.l) == 'ns':
                 print(Fore.GREEN+"Performing NS record lookup for domain: "+args.domain)
-                enum_mod.ns(target)
+                perform.nsrec(target)
+                    
+                
             elif (args.lookup or args.l) == 'txt':
                 print(Fore.GREEN+"Performing TXT record lookup for domain: "+args.domain)
-                enum_mod.txt(target)
+                perform.txtrec(target)
+                
+                
             elif (args.lookup or args.l) == 'soa':
                 print(Fore.GREEN+"Performing SOA record lookup for domain: "+args.domain)
-                enum_mod.soa(target)
+                perform.soarec(target)
+                    
+                
             elif (args.lookup or args.l) == 'all':
                 print(Fore.GREEN+"Performing all record lookup for domain: "+args.domain)
-                enum_mod.all_records(target)
+                perform.allrec(target) 
+                
             else:
                 print(Fore.RED+"Invalid option. Please use -h or --help for usage information."+Fore.RESET)
                 sys.exit(1)
+                
+                
         else:
             print(Fore.RED+"!!type -h or --help for usage information!!"+Fore.RESET)
             print(Fore.RED+"Please specify a domain using -d or --domain and a lookup option using -l or --lookup"+Fore.RESET)
@@ -143,6 +165,8 @@ def dlookup():
         sys.exit(1)
         return
     
-   
+    
+
+
     
     
