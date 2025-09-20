@@ -39,7 +39,7 @@ def cname(target):
         cname_info=dns.resolver.resolve(target,'CNAME')
     
         for cn in cname_info:
-            return [str(cn)]
+            return cn
             
     except dns.resolver.NoAnswer:
         return(Fore.RED+"Query does not exist :")
@@ -114,3 +114,16 @@ def soa(target):
         return(Fore.RED+f"error occured :{e}"+Fore.RESET)
   
 
+       
+def all_records(target):
+    
+    results = {
+        "A": a(target),
+        "AAAA": ipv6(target),
+        "CNAME": cname(target),
+        "MX": mx(target),
+        "NS": ns(target),
+        "TXT": txt(target),
+        "SOA": soa(target),
+    }
+    return results

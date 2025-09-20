@@ -1,7 +1,7 @@
 from tkinter import *
-import guienumerator
+import enumerator
 from tkinter import ttk
-import whoiscan2
+import whoiscan
 def main():
 
     screen=Tk()
@@ -51,14 +51,14 @@ def main():
     def ipv4():
         clear_results()
         target=targ.get()
-        result=guienumerator.a(target)
+        result=enumerator.a(target)
         for res in result:
             tree.insert("",END,values=(res,"","","","","",""))
 
     def ipv6():
         clear_results()
         target=targ.get()
-        result=guienumerator.aaaa(target)
+        result=enumerator.ipv6(target)
         for res in result:
             tree.insert("",END,values=("",res,"","","",""))
     
@@ -66,49 +66,58 @@ def main():
     def cnamerec():
         clear_results()
         target=targ.get()
-        result=guienumerator.cname(target)
+        result=enumerator.cname(target)
         for res in result:
             tree.insert("",END,values=("","",res,"","","",""))
         
     def mxrec():
         clear_results()
         target=targ.get()
-        result=guienumerator.mx(target)
+        result=enumerator.mx(target)
         for res in result:
             tree.insert("",END,values=("","","",res,"","",""))
 
     def nsrec():
         clear_results()
         target=targ.get()
-        result=guienumerator.ns(target)
+        result=enumerator.ns(target)
         for res in result:
             tree.insert("",END,values=("","","","",res,"",""))
 
     def txtrec():
         clear_results()
         target=targ.get()
-        result=guienumerator.txt(target)
+        result=enumerator.txt(target)
         for res in result:
             tree.insert("",END,values=("","","","","",res,""))
         
     def soarec():
         clear_results()
         target=targ.get()
-        result=guienumerator.soa(target)
+        result=enumerator.soa(target)
         for res in result:
             tree.insert("",END,values=("","","","","","",res))
 
     def whoisrec():
         clear_whois()
         target = targ.get()
-        result = whoiscan2.whois_scan(target)
+        result = whoiscan.whois_scan(target)
         for key, value in result.items():
             whoistree.insert("", END, values=(f"{key}: {value}",))
 
     def allrec():
         clear_results()
         target=targ.get()
-        result=guienumerator.all_records(target)
+        rec1=enumerator.a(target)
+        rec2=enumerator.ipv6(target)
+        rec3=enumerator.cname(target)
+        rec4=enumerator.mx(target)
+        rec5=enumerator.ns(target)
+        rec6=enumerator.txt(target)
+        rec7=enumerator.soa(target)
+        tree.insert("",END,values=(rec1,rec2,rec3,rec4,rec5,rec6,rec7))
+        whoisrec()
+    '''result=enumerator.all_records(target)
         max_len = max(len(v) for v in result.values())
         for i in range(max_len):
             row = []
@@ -116,7 +125,7 @@ def main():
                 values = result.get(rec_type, [])
                 row.append(values[i] if i < len(values) else "")
             tree.insert("", END, values=tuple(row))
-        whoisrec()
+        whoisrec()'''
 
     #buttons
     abut=Button(butframe,text="ipv4",command=ipv4,bg="lightgreen",width=10)

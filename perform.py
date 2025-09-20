@@ -1,6 +1,12 @@
 import enumerator
 from colorama import Fore
+import whoiscan
 
+def whoisrec(target):
+    print(Fore.GREEN+"\n|--------------------WHOIS RECORD--------------------|\n")
+    result=whoiscan.whois_scan(target)
+    for key,value in result.items():
+        print(f"{key}:{value}")
 
 
 
@@ -46,6 +52,7 @@ def soarec(target):
         
 def allrec(target):
     print(Fore.GREEN+"\n|--------------------all RECORD--------------------|\n")
+    whoisrec(target)
     arec(target)
     aaaarec(target)
     cnamerec(target)
