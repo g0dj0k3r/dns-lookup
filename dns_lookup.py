@@ -1,11 +1,10 @@
 import whoiscan
-import colorama
 import sys
 import argparse
 import user_manuel
 import perform
-from colorama import Fore, Back, Style
-from pyfiglet import*
+from colorama import Fore
+from pyfiglet import Figlet
 
 
 f=Figlet()
@@ -30,14 +29,14 @@ def dlookup():
     parser.add_argument('-d', '--domain', type=str,help='ENTER TARGET DOMAIN')
     parser.add_argument('-l', '--lookup', type=str,choices=['whois','a', '4a','mx', 'ns', 'txt', 'soa', 'cname','all'], help='Type of DNS lookup to perform')
     parser.add_argument('-q', '--exit', action='store_true', help='Exit the program')
-    args = parser.parse_args()
 
       
 
               
                 
     try:
-        
+        args = parser.parse_args()
+
         if args.exit:
             print(Fore.RED+"Exiting the program. Goodbye!"+Fore.RESET)
             sys.exit(0)
@@ -87,7 +86,7 @@ def dlookup():
             # Only one lookup type is possible due to argparse 'choices', so just check args.lookup
             if (args.lookup or args.l) == 'whois':
                 print(Fore.GREEN+"Performing WHOIS lookup for domain: "+args.domain)
-                whoiscan.whois_scan(target)
+                perform.whoisrec(target)
                 
             elif (args.lookup or args.l) == 'a':
                 print(Fore.GREEN+"Performing A record lookup for domain: "+args.domain)

@@ -14,44 +14,43 @@ def arec(target):
     
     print(Fore.GREEN+"\n|--------------------A RECORD--------------------|\n")
     result=enumerator.a(target)
-    print(result)
+    print('n'.join(result))
 
 def aaaarec(target):    
     print(Fore.GREEN+"\n|--------------------AAAA RECORD--------------------|\n")
     result=enumerator.ipv6(target)
-    print(result)
+    print('\n'.join(result))
     
 def cnamerec(target):
     print(Fore.GREEN+"\n|--------------------CNAME RECORD--------------------|\n")
     result=enumerator.cname(target)
-    print(result)
+    print('\n'.join(result))
         
 
 def mxrec(target):    
     print(Fore.GREEN+"\n|--------------------MX RECORD--------------------|\n")
     result=enumerator.mx(target)
-    print(result)
+    print('\n'.join(result))
         
 
 def nsrec(target):    
     print(Fore.GREEN+"\n|--------------------NS RECORD--------------------|\n")
     result=enumerator.ns(target)
-    print(result)
+    print('\n'.join(result))
         
 
 def txtrec(target):    
     print(Fore.GREEN+"\n|--------------------TXT RECORD--------------------|\n")
     result=enumerator.txt(target)
-    print(result)
+    print('\n'.join(result))
         
 
 def soarec(target):    
     print(Fore.GREEN+"\n|--------------------SOA RECORD--------------------|\n")
     result=enumerator.soa(target)
-    print(result)
+    print('\n'.join(result))
         
 def allrec(target):
-    print(Fore.GREEN+"\n|--------------------all RECORD--------------------|\n")
     whoisrec(target)
     arec(target)
     aaaarec(target)
