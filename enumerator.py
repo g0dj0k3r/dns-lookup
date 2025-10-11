@@ -7,46 +7,43 @@ from colorama import *
 def a(target):
     try:
         info=dns.resolver.resolve(target,'A')
-    
-        for ip in info:
-            return [str(ip)]
+        return [ip.to_text() for ip in info]
+            
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
         
 
 def ipv6(target):
     
     try:
         info=dns.resolver.resolve(target,'AAAA')
-    
-        for ip in info:
-            return [str(ip)]
+        return [ip.to_text() for ip in info]
+
             
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
         
 def cname(target):
         
     try:
         cname_info=dns.resolver.resolve(target,'CNAME')
     
-        for cn in cname_info:
-            return cn
+        return [data.to_text() for data in cname_info]
             
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
         
 
 def mx(target):
@@ -54,31 +51,30 @@ def mx(target):
     try:
         mail_info=dns.resolver.resolve(target,'MX')
     
-        for mailinfo in mail_info:
-            return [str(mailinfo)]
+        return [data.to_text() for data in mail_info]
+
         
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
          
 def ns(target):
     
     
     try:
         ns_info=dns.resolver.resolve(target,'NS')
-    
-        for nameserver in ns_info:
-            return [str(nameserver)]
+
+        return [data.to_text() for data in ns_info]
             
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
         
 def txt(target):
     
@@ -87,15 +83,15 @@ def txt(target):
         
         txt_rec=dns.resolver.resolve(target,'TXT')
     
-        for rec in txt_rec:
-            return [str(rec)]
+        return [data.to_text() for data in txt_rec]
+
             
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return [Fore.RED+"Query does not exist :"+Fore.RESET]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return [Fore.RED+"Domain does not exist"+Fore.RESET]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return [Fore.RED+f"error occured :{e}"+Fore.RESET]
         
 
                
@@ -104,14 +100,14 @@ def soa(target):
     
     try:
         soa_rec=dns.resolver.resolve(target,'SOA')
-        for rec in soa_rec:
-            return [str(rec)]
+        return [data.to_text() for data in soa_rec]
+
     except dns.resolver.NoAnswer:
-        return(Fore.RED+"Query does not exist :")
+        return[Fore.RED+"Query does not exist :"]
     except dns.resolver.NXDOMAIN:
-        return(Fore.RED+"Domain does not exist")
+        return[Fore.RED+"Domain does not exist"]
     except Exception as e:
-        return(Fore.RED+f"error occured :{e}"+Fore.RESET)
+        return[Fore.RED+f"error occured :{e}"+Fore.RESET]
   
 
        

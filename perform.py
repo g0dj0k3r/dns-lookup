@@ -14,7 +14,10 @@ def arec(target):
     
     print(Fore.GREEN+"\n|--------------------A RECORD--------------------|\n")
     result=enumerator.a(target)
-    print('n'.join(result))
+    if result:
+        print('\n'.join(result))
+    else:
+        print(Fore.RED+"No A record found or an error occurred."+Fore.RESET)
 
 def aaaarec(target):    
     print(Fore.GREEN+"\n|--------------------AAAA RECORD--------------------|\n")
