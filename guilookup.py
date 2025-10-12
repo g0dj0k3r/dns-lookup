@@ -2,6 +2,7 @@ from tkinter import *
 import enumerator
 from tkinter import ttk
 import whoiscan
+
 def main():
 
     screen=Tk()
@@ -52,6 +53,11 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.a(target)
+        # result may be a list of IPs or a single string; normalize to list
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=(res,"","","","","",""))
 
@@ -59,14 +65,23 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.ipv6(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
-            tree.insert("",END,values=("",res,"","","",""))
+            # Ensure 7 columns: (A, AAAA, CNAME, MX, NS, TXT, SOA)
+            tree.insert("",END,values=("",res,"","","","",""))
     
 
     def cnamerec():
         clear_results()
         target=targ.get()
         result=enumerator.cname(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=("","",res,"","","",""))
         
@@ -74,6 +89,10 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.mx(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=("","","",res,"","",""))
 
@@ -81,6 +100,10 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.ns(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=("","","","",res,"",""))
 
@@ -88,6 +111,10 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.txt(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=("","","","","",res,""))
         
@@ -95,6 +122,10 @@ def main():
         clear_results()
         target=targ.get()
         result=enumerator.soa(target)
+        if not result:
+            return
+        if isinstance(result, str):
+            result = [result]
         for res in result:
             tree.insert("",END,values=("","","","","","",res))
 
@@ -115,18 +146,23 @@ def main():
         rec5=enumerator.ns(target)
         rec6=enumerator.txt(target)
         rec7=enumerator.soa(target)
-        tree.insert("",END,values=(rec1,rec2,rec3,rec4,rec5,rec6,rec7))
-        whoisrec()
-    '''result=enumerator.all_records(target)
-        max_len = max(len(v) for v in result.values())
-        for i in range(max_len):
-            row = []
-            for rec_type in ["A", "AAAA", "CNAME", "MX", "NS", "TXT", "SOA"]:
-                values = result.get(rec_type, [])
-                row.append(values[i] if i < len(values) else "")
-            tree.insert("", END, values=tuple(row))
-        whoisrec()'''
+        # Normalize non-list returns to lists
+        recs = []
+        for r in (rec1, rec2, rec3, rec4, rec5, rec6, rec7):
+            if not r:
+                recs.append([])
+            elif isinstance(r, list):
+                recs.append(r)
+            else:
+                recs.append([str(r)])
 
+        max_len = max((len(r) for r in recs), default=0)
+        # Insert rows aligning records by index across columns
+        for i in range(max_len):
+            row = tuple((recs[col][i] if i < len(recs[col]) else "") for col in range(7))
+            tree.insert("", END, values=row)
+        whoisrec()
+    
     #buttons
     abut=Button(butframe,text="ipv4",command=ipv4,bg="lightgreen",width=10)
     aaaabut=Button(butframe,text="ipv6",command=ipv6,bg="red",width=10)
